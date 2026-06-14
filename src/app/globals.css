@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-red: #D32F2F;
+  --brand-red-dark: #B71C1C;
+  --brand-red-light: #EF5350;
+  --brand-yellow: #FFC107;
+  --brand-cream: #FFF8F0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
+  background-color: #F5F5F5;
+  color: #212121;
+  min-height: 100vh;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #D32F2F;
+  border-radius: 3px;
+}
+
+/* Smooth card transitions */
+.food-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.food-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(211, 47, 47, 0.12);
+}
+
+/* Quantity button animation */
+.qty-btn {
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+.qty-btn:active {
+  transform: scale(0.92);
+}
+
+/* Category tab underline animation */
+.cat-tab {
+  position: relative;
+}
+.cat-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: var(--brand-red);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+.cat-tab.active::after {
+  transform: scaleX(1);
+}
+
+/* Number formatting in Persian */
+.price-display {
+  font-feature-settings: 'tnum';
+  letter-spacing: -0.02em;
+}
+
+/* Cart slide-in */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.cart-item-enter {
+  animation: slideIn 0.25s ease;
+}
+
+/* Sticky category bar shadow */
+.sticky-bar {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* Hero overlay gradient */
+.hero-overlay {
+  background: linear-gradient(
+    to left,
+    rgba(0,0,0,0.6) 0%,
+    rgba(0,0,0,0.3) 60%,
+    rgba(0,0,0,0.05) 100%
+  );
+}
+
+/* Food image placeholder */
+.food-img-placeholder {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+/* Input RTL */
+input[type="text"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Badge pulse */
+@keyframes pulse-once {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+.badge-pulse {
+  animation: pulse-once 0.3s ease;
+}

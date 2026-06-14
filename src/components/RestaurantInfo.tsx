@@ -1,0 +1,54 @@
+'use client';
+
+import { MapPin, Clock, Phone, Info } from 'lucide-react';
+
+export default function RestaurantInfo() {
+  return (
+    <div className="p-5 space-y-5 text-right">
+      <h2 className="text-base font-bold text-gray-800">اطلاعات رستوران</h2>
+
+      <div className="space-y-4">
+        {/* Address */}
+        <div className="flex items-start gap-3">
+          <MapPin size={18} className="text-brand-red mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-xs text-gray-400 mb-0.5">آدرس</p>
+            <p className="text-sm text-gray-700">خیابان طالقانی، جنب سینما عصر جدید</p>
+          </div>
+        </div>
+
+        {/* Hours */}
+        <div className="flex items-start gap-3">
+          <Clock size={18} className="text-brand-red mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-xs text-gray-400 mb-0.5">ساعت کاری</p>
+            <p className="text-sm text-gray-700">شنبه تا پنجشنبه: ۱۱:۰۰ – ۲۳:۰۰</p>
+            <p className="text-sm text-gray-700">جمعه: ۱۲:۰۰ – ۲۳:۳۰</p>
+          </div>
+        </div>
+
+        {/* Phone */}
+        <div className="flex items-start gap-3">
+          <Phone size={18} className="text-brand-red mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-xs text-gray-400 mb-0.5">تلفن</p>
+            <p className="text-sm text-gray-700">۰۲۱-۱۲۳۴-۵۶۷۸</p>
+          </div>
+        </div>
+
+        {/* Description */}
+        <div className="flex items-start gap-3">
+          <Info size={18} className="text-brand-red mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-xs text-gray-400 mb-0.5">درباره ما</p>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              TFC با بیش از ۱۰ سال سابقه در ارائه مرغ سوخاری ترد و خوشمزه، بهترین تجربه
+              فست‌فود را برای شما فراهم می‌کند. تمام محصولات ما با مواد اولیه تازه و با کیفیت
+              تهیه می‌شوند.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
