@@ -1,15 +1,17 @@
 import { Vendor } from "@/types/vendors";
 import { categories, menuItems } from "./menu";
 
-export const vendors = {
+export const vendors: Record<string, Vendor> = {
   "1": {
     id: "1",
+    slug: "restaurant-1",
+
     name: "Restaurant 1",
     address: "Demo address 1",
     phone: "021-1234-5678",
     description: "Demo restaurant description 1",
 
-    logo: "/images/logo1.png",
+    logo: "/images/foods/bq4uuzzj.3sj_560x350.png",
     heroImage: "/images/hero1.jpg",
 
     social: {
@@ -29,8 +31,11 @@ export const vendors = {
     menuItems,
     categories,
   },
+
   "2": {
     id: "2",
+    slug: "restaurant-2",
+
     name: "Restaurant 2",
     address: "Demo address 2",
     phone: "021-9999-8888",
@@ -56,4 +61,4 @@ export const vendors = {
     menuItems,
     categories,
   },
-} satisfies Record<string, Vendor>;
+};

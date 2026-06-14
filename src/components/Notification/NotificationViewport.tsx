@@ -3,36 +3,43 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useNotification } from "@/context/NotificationContext";
 import NotificationItem from "./NotificationItem";
+import { useState } from "react";
 
 export default function NotificationViewport() {
   const { notifications } = useNotification();
+  const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="fixed top-4 left-4 z-[9999] flex flex-col gap-2">
+    <div
+      className="fixed top-4 left-4 z-[9999] w-80"
+      onClick={() => setExpanded((v) => !v)}
+    >
       <AnimatePresence>
-        {notifications.map((n, index) => (
-          <motion.div
-            key={n.id}
-            layout
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }}
-            exit={{ opacity: 0, x: -100, scale: 0.9 }}
-            transition={{
-              type: "spring",
-              stiffness: 400,
-              damping: 30,
-            }}
-            style={{
-              zIndex: 9999 - index,
-            }}
-          >
-            <NotificationItem notification={n} />
-          </motion.div>
-        ))}
+        {notifications.map((n, index) => {
+          const isCollapsed = !expanded;
+
+          return (
+            <motion.div
+              key={n.id}
+              layout
+              initial={{ opacity: 0, y: -20, scale: 0.9 }}
+              animate={{
+                opacity: 1,
+                y: isCollapsed ? index * 8 : index * 80,
+                scale: isCollapsed ? 1 - index * 0.05 : 1,
+                zIndex: 9999 - index,
+              }}
+              exit={{ opacity: 0, x: -120, scale: 0.8 }}
+              transition={{ type: "spring", stiffness: 500, damping: 35 }}
+              className="absolute left-0"
+              style={{
+                top: 0,
+              }}
+            >
+              <NotificationItem notification={n} />
+            </motion.div>
+          );
+        })}
       </AnimatePresence>
     </div>
   );

@@ -9,8 +9,8 @@ import {
   useEffect,
 } from "react";
 
-import type { Notification } from "@/types/notification";
-import { appEventBus } from "@/app/lib/appEventBus";
+import type { Notification, NotificationType } from "@/types/notification";
+import { appEventBus } from "@/lib/appEventBus";
 
 type Ctx = {
   notifications: Notification[];
@@ -46,19 +46,35 @@ export function NotificationProvider({
     });
   }, []);
 
+  useEffect(() => {
+    if (queueRef.current.length === 0) return;
+    if (notifications.length >= MAX_VISIBLE) return;
+
+    const id = setTimeout(processQueue, 100);
+    return () => clearTimeout(id);
+  }, [notifications, processQueue]);
+
   const show = useCallback(
     (message: string, type: Notification["type"] = "info") => {
+      const id = crypto.randomUUID();
+
       const notif: Notification = {
-        id: crypto.randomUUID(),
+        id,
         message,
         type,
-        duration: 3000,
+        duration: 3000, // default 2s as requested
       };
 
       queueRef.current.push(notif);
+
       setTimeout(processQueue, 0);
+
+      // auto remove after duration
+      setTimeout(() => {
+        remove(id);
+      }, notif.duration);
     },
-    [processQueue],
+    [processQueue, remove],
   );
 
   const clear = useCallback(() => {
@@ -68,10 +84,11 @@ export function NotificationProvider({
 
   // 🔥 CONNECT EVENT BUS
   useEffect(() => {
-    const unsub = appEventBus.subscribe((message: string, type: string) => {
-      show(message, type as Notification["type"]);
-    });
-
+    const unsub = appEventBus.subscribe(
+      (message: string, type?: NotificationType) => {
+        show(message, type ?? "info");
+      },
+    );
     return unsub;
   }, [show]);
 

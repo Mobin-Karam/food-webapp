@@ -3,7 +3,7 @@ import { Category, MenuItem } from "./menu";
 export type Vendor = {
   id: string;
   name: string;
-  slug?: string;
+  slug: string; // IMPORTANT: required
 
   address?: string;
   phone?: string;

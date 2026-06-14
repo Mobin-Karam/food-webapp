@@ -1,15 +1,15 @@
 import OrderPage from "@/components/pages/OrderPage";
 import { vendors } from "@/data/vendors";
-import { VendorId } from "@/types/vendors";
 import { notFound } from "next/navigation";
 
-export default function Page({
+export default async function Page({
   params,
 }: {
-  params: { slug: VendorId };
+  params: Promise<{ slug: string }>;
 }) {
-  const vendor = vendors[params.slug];
+  const { slug } = await params;
 
+  const vendor = Object.values(vendors).find((v) => v.slug === slug);
 
   if (!vendor) return notFound();
 

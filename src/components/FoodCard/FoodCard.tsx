@@ -1,8 +1,8 @@
 'use client';
 
 import { Plus, Minus } from 'lucide-react';
-import { MenuItem } from '@/data/menu';
 import { useCart } from '@/context/CartContext';
+import { MenuItem } from '@/types/menu';
 
 type Props = {
   item: MenuItem;

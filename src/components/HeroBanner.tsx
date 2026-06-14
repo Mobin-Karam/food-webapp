@@ -1,33 +1,29 @@
-'use client';
+"use client";
 
-import { MapPin, ChevronDown } from 'lucide-react';
-import type { Vendor } from '@/types/vendors';
+import { MapPin, ChevronDown } from "lucide-react";
+import type { Vendor } from "@/types/vendors";
+import { BranchButton } from "./Buttons/BranchButton/BranchButton";
 
 export default function HeroBanner({ vendor }: { vendor: Vendor }) {
   const isAcceptingOrders = vendor.acceptingOrders ?? vendor.isOpen;
 
   return (
     <div className="relative w-full h-48 md:h-56 overflow-hidden">
-
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url('/images/hero-bg.jpg')`,
-          backgroundColor: '#8B4513',
+          backgroundImage: `url('/images/foods/54ezkonv.o0b_560x350.jpg')`,
+          backgroundColor: "#8B4513",
         }}
       />
 
       <div className="hero-overlay absolute inset-0" />
 
-      <div className="relative z-10 h-full flex flex-col justify-end p-5 md:p-8 text-white">
-
-        <div className="flex items-start justify-between">
-
+      <div className="relative max-w-7xl mx-auto z-10 h-full flex flex-col justify-end p-5 md:p-8 text-white">
+        <div className=" flex items-start justify-between">
           <div>
-
             {/* Status */}
             <div className="flex items-center gap-2 mb-2">
-
               <span
                 className={`w-2.5 h-2.5 rounded-full animate-pulse ${
                   isAcceptingOrders ? "bg-green-400" : "bg-red-400"
@@ -41,7 +37,6 @@ export default function HeroBanner({ vendor }: { vendor: Vendor }) {
               >
                 {isAcceptingOrders ? "سفارش می‌پذیریم" : "در حال حاضر بسته است"}
               </span>
-
             </div>
 
             {/* Vendor name */}
@@ -52,19 +47,13 @@ export default function HeroBanner({ vendor }: { vendor: Vendor }) {
             {/* Address */}
             <div className="flex items-center gap-1.5 text-white/80 text-sm">
               <MapPin size={14} />
-              <span>{vendor.address ?? 'آدرس ثبت نشده'}</span>
+              <span>{vendor.address ?? "آدرس ثبت نشده"}</span>
             </div>
-
           </div>
 
           {/* Action */}
-          <button className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white text-sm px-3 py-1.5 rounded-lg border border-white/30 transition-colors whitespace-nowrap">
-            <span>تغییر شعبه</span>
-            <ChevronDown size={14} />
-          </button>
-
+          <BranchButton />
         </div>
-
       </div>
     </div>
   );

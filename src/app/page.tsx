@@ -9,7 +9,7 @@ export default function HomePage() {
       {/* Background */}
       <div className="absolute inset-0">
         <Image
-          src="/images/hero-bg.jpg"
+          src="/images/foods/5ga3mfbn.i51_560x350.jpg"
           alt="bg"
           fill
           className="object-cover"
@@ -28,15 +28,15 @@ export default function HomePage() {
 
           {/* Grid */}
           <div className="grid grid-cols-2 gap-3">
-            {Object.entries(vendors).map(([slug, v]) => (
+            {Object.entries(vendors).map(([id, v]) => (
               <Link
-                key={slug}
-                href={`/order/${slug}`}
+                key={id}
+                href={`/order/${v.slug}`}
                 className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl bg-white hover:bg-gray-50 transition border"
               >
                 <div className="w-10 h-10 relative">
                   <Image
-                    src={v.logo || "/images/default-logo.png"}
+                    src={"/images/foods/logo.png"}
                     alt={v.name}
                     fill
                     className="object-contain"
@@ -51,8 +51,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-
-
     </div>
   );
 }

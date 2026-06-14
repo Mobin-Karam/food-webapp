@@ -48,7 +48,7 @@ export default function Footer({ vendor }: { vendor: Vendor }) {
         <div className="flex flex-col items-center justify-center gap-2">
           <div className="relative w-12 h-12">
             <Image
-              src={vendor.logo || "/images/logo.png"}
+              src={vendor.logo || "/images/foods/54ezkonv.o0b_560x350.jpg"}
               alt={vendor.name}
               fill
               className="object-contain"

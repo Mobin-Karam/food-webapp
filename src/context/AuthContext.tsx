@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import { appEventBus } from "@/app/lib/appEventBus";
+import { appEventBus } from "@/lib/appEventBus";
 
 type AuthState = {
   isLoggedIn: boolean;

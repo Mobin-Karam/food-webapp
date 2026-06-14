@@ -1,7 +1,7 @@
 import { Search, Share2 } from "lucide-react";
 import { useState, useMemo } from "react";
 import type { Vendor } from "@/types/vendors";
-import FoodCard from "./FoodCard";
+import FoodCard from "./FoodCard/FoodCard";
 import CategoryBar from "./CategoryBar";
 import { useNotification } from "@/context/NotificationContext";
 
@@ -97,7 +97,7 @@ export default function MenuSection({ vendor }: Props) {
         </div>
 
         {filteredItems?.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {filteredItems.map((item) => (
               <FoodCard key={item.id} item={item} />
             ))}

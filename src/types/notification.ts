@@ -6,4 +6,5 @@ export type Notification = {
   type: NotificationType;
   duration?: number;
   priority?: number; // optional future use
+  
 };

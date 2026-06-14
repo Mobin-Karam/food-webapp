@@ -3,11 +3,11 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
-import CartSidebar from "@/components/CartSidebar";
 import MenuSection from "@/components/MenuSection";
 import RestaurantInfo from "@/components/RestaurantInfo";
-import MobileCartBar from "@/components/MobileCartBar";
 import Footer from "../Footer";
+import CartSidebar from "../Cart/CartSidebar";
+import MobileCartBar from "../Cart/MobileCartBar";
 
 type Tab = "menu" | "info";
 

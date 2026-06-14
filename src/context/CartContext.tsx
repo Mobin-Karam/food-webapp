@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useReducer, ReactNode } from "react";
 
 import { MenuItem } from "@/types/menu";
-import { appEventBus } from "@/app/lib/appEventBus";
+import { appEventBus } from "@/lib/appEventBus";
 
 export type CartItem = {
   item: MenuItem;
