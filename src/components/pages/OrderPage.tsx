@@ -7,6 +7,7 @@ import CartSidebar from "@/components/CartSidebar";
 import MenuSection from "@/components/MenuSection";
 import RestaurantInfo from "@/components/RestaurantInfo";
 import MobileCartBar from "@/components/MobileCartBar";
+import Footer from "../Footer";
 
 type Tab = "menu" | "info";
 
@@ -15,14 +16,11 @@ export default function OrderPage({ vendor }: { vendor: any }) {
 
   return (
     <div className="min-h-screen bg-gray-100 pb-24 md:pb-4">
-      <Header />
       <HeroBanner vendor={vendor} />
-
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex gap-4 items-start">
           <div className="flex-1 min-w-0">
             <div className="bg-white rounded-xl overflow-hidden shadow-card">
-
               {/* Tabs */}
               <div className="flex border-b border-gray-100">
                 <button
@@ -50,10 +48,7 @@ export default function OrderPage({ vendor }: { vendor: any }) {
 
               {/* Content */}
               {activeTab === "menu" ? (
-                <MenuSection
-                  menuItems={vendor.menuItems}
-                  categories={vendor.categories}
-                />
+                <MenuSection vendor={vendor} />
               ) : (
                 <RestaurantInfo vendor={vendor} />
               )}
@@ -67,6 +62,7 @@ export default function OrderPage({ vendor }: { vendor: any }) {
       </div>
 
       <MobileCartBar />
+      <Footer vendor={vendor} />
     </div>
   );
 }

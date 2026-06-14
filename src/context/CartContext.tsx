@@ -1,7 +1,9 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
-import { MenuItem } from '@/data/menu';
+import React, { createContext, useContext, useReducer, ReactNode } from "react";
+
+import { MenuItem } from "@/types/menu";
+import { appEventBus } from "@/app/lib/appEventBus";
 
 export type CartItem = {
   item: MenuItem;
@@ -13,43 +15,61 @@ type CartState = {
 };
 
 type CartAction =
-  | { type: 'ADD_ITEM'; payload: MenuItem }
-  | { type: 'REMOVE_ITEM'; payload: string }
-  | { type: 'DECREMENT_ITEM'; payload: string }
-  | { type: 'CLEAR_CART' };
+  | { type: "ADD_ITEM"; payload: MenuItem }
+  | { type: "REMOVE_ITEM"; payload: string }
+  | { type: "DECREMENT_ITEM"; payload: string }
+  | { type: "CLEAR_CART" };
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
-    case 'ADD_ITEM': {
-      const existing = state.items.find(ci => ci.item.id === action.payload.id);
+    case "ADD_ITEM": {
+      const existing = state.items.find(
+        (ci) => ci.item.id === action.payload.id,
+      );
+
       if (existing) {
+        appEventBus.emit("تعداد آیتم افزایش یافت", "success");
+
         return {
-          items: state.items.map(ci =>
+          items: state.items.map((ci) =>
             ci.item.id === action.payload.id
               ? { ...ci, quantity: ci.quantity + 1 }
-              : ci
+              : ci,
           ),
         };
       }
-      return { items: [...state.items, { item: action.payload, quantity: 1 }] };
+
+      appEventBus.emit("به سبد خرید اضافه شد", "success");
+
+      return {
+        items: [...state.items, { item: action.payload, quantity: 1 }],
+      };
     }
-    case 'DECREMENT_ITEM': {
-      const existing = state.items.find(ci => ci.item.id === action.payload);
+    case "DECREMENT_ITEM": {
+      const existing = state.items.find((ci) => ci.item.id === action.payload);
       if (!existing) return state;
       if (existing.quantity === 1) {
-        return { items: state.items.filter(ci => ci.item.id !== action.payload) };
+        return {
+          items: state.items.filter((ci) => ci.item.id !== action.payload),
+        };
       }
       return {
-        items: state.items.map(ci =>
+        items: state.items.map((ci) =>
           ci.item.id === action.payload
             ? { ...ci, quantity: ci.quantity - 1 }
-            : ci
+            : ci,
         ),
       };
     }
-    case 'REMOVE_ITEM':
-      return { items: state.items.filter(ci => ci.item.id !== action.payload) };
-    case 'CLEAR_CART':
+    case "REMOVE_ITEM":
+      appEventBus.emit("آیتم حذف شد", "info");
+
+      return {
+        items: state.items.filter((ci) => ci.item.id !== action.payload),
+      };
+    case "CLEAR_CART":
+      appEventBus.emit("سبد خرید خالی شد", "info");
+
       return { items: [] };
     default:
       return state;
@@ -70,19 +90,22 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-const TAX_RATE = 0.10; // 10%
+const TAX_RATE = 0.1; // 10%
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, { items: [] });
 
-  const addItem = (item: MenuItem) => dispatch({ type: 'ADD_ITEM', payload: item });
-  const decrementItem = (id: string) => dispatch({ type: 'DECREMENT_ITEM', payload: id });
-  const removeItem = (id: string) => dispatch({ type: 'REMOVE_ITEM', payload: id });
-  const clearCart = () => dispatch({ type: 'CLEAR_CART' });
+  const addItem = (item: MenuItem) =>
+    dispatch({ type: "ADD_ITEM", payload: item });
+  const decrementItem = (id: string) =>
+    dispatch({ type: "DECREMENT_ITEM", payload: id });
+  const removeItem = (id: string) =>
+    dispatch({ type: "REMOVE_ITEM", payload: id });
+  const clearCart = () => dispatch({ type: "CLEAR_CART" });
 
   const totalPrice = state.items.reduce(
     (sum, ci) => sum + ci.item.price * ci.quantity,
-    0
+    0,
   );
   const taxAmount = Math.round(totalPrice * TAX_RATE);
   const grandTotal = totalPrice + taxAmount;
@@ -90,7 +113,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ state, addItem, decrementItem, removeItem, clearCart, totalPrice, taxAmount, grandTotal, totalItems }}
+      value={{
+        state,
+        addItem,
+        decrementItem,
+        removeItem,
+        clearCart,
+        totalPrice,
+        taxAmount,
+        grandTotal,
+        totalItems,
+      }}
     >
       {children}
     </CartContext.Provider>
@@ -99,6 +132,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
 export function useCart() {
   const ctx = useContext(CartContext);
-  if (!ctx) throw new Error('useCart must be used within CartProvider');
+  if (!ctx) throw new Error("useCart must be used within CartProvider");
   return ctx;
 }

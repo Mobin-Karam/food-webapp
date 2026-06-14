@@ -1,0 +1,41 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { useNotification } from "@/context/NotificationContext";
+import type { Notification } from "@/types/notification";
+
+export default function NotificationItem({
+  notification,
+}: {
+  notification: Notification;
+}) {
+  const { remove } = useNotification();
+
+  return (
+    <motion.div
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      onDragEnd={(_, info) => {
+        if (info.offset.x < -80) {
+          remove(notification.id);
+        }
+      }}
+      className={`
+        w-72 px-4 py-3 rounded-xl shadow-lg text-white cursor-grab active:cursor-grabbing
+        ${
+          notification.type === "success"
+            ? "bg-green-500"
+            : notification.type === "error"
+            ? "bg-red-500"
+            : "bg-gray-800"
+        }
+      `}
+    >
+      <p className="text-sm font-medium">{notification.message}</p>
+
+      <div className="text-[10px] opacity-70 mt-1">
+        swipe left to dismiss
+      </div>
+    </motion.div>
+  );
+}

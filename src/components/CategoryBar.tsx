@@ -1,19 +1,26 @@
 "use client";
 
+import { Category } from "@/types/menu";
 import Image from "next/image";
-import { categories } from "@/data/menu";
+
 
 type Props = {
+  categories: readonly Category[];
   activeCategory: string;
   onSelect: (id: string) => void;
 };
 
-export default function CategoryBar({ activeCategory, onSelect }: Props) {
+export default function CategoryBar({
+  categories,
+  activeCategory,
+  onSelect,
+}: Props) {
   return (
     <div className="bg-white border-b border-gray-100 overflow-x-auto">
       <div className="flex min-w-max">
-        {categories.map((cat) => {
+        {categories?.map((cat) => {
           const isActive = activeCategory === cat.id;
+
           return (
             <button
               key={cat.id}
@@ -33,7 +40,7 @@ export default function CategoryBar({ activeCategory, onSelect }: Props) {
                   sizes="32px"
                   className="object-contain"
                   style={
-                    isActive ? {} : { filter: "brightness(0) invert(0.6)" }
+                    isActive ? undefined : { filter: "brightness(0) invert(0.6)" }
                   }
                 />
               </div>

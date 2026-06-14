@@ -67,16 +67,20 @@ For the hero banner, replace `public/images/hero-bg.jpg`.
 ## Customization
 
 ### Change prices or add items
+
 Edit `src/data/menu.ts` — add new items to any category.
 
 ### Add a new category
+
 1. Add to `categories` array in `src/data/menu.ts`
 2. Add matching emoji in `categoryEmoji` in `FoodCard.tsx`
 
 ### Change brand colors
+
 Edit `tailwind.config.js` under `theme.extend.colors.brand`.
 
 ### Change tax rate
+
 Edit `TAX_RATE` in `src/context/CartContext.tsx`.
 
 ## Build for Production
@@ -84,4 +88,12 @@ Edit `TAX_RATE` in `src/context/CartContext.tsx`.
 ```bash
 npm run build
 npm start
+```
+
+### i can use this every where
+
+```js
+import { appEventBus } from "@/lib/appEventBus";
+
+appEventBus.emit("عملیات موفق", "success");
 ```
