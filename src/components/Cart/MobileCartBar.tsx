@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { useCart } from '@/context/CartContext';
 import CartSidebar from './CartSidebar';
+import { useCart } from '@/features/cart/useCart';
 
 export default function MobileCartBar() {
   const [open, setOpen] = useState(false);

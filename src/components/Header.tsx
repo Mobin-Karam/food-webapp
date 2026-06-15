@@ -1,9 +1,9 @@
 "use client";
 
 import { ShoppingCart, UserCircle2, LogIn } from "lucide-react";
-import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
+import { useCart } from "@/features/cart/useCart";
 
 export default function Header() {
   const { totalItems } = useCart();

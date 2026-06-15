@@ -6,9 +6,9 @@ import { ModalProvider } from "@/components/Modal/ModalContext";
 import ModalRoot from "@/components/Modal/ModalRoot";
 import NotificationViewport from "@/components/Notification/NotificationViewport";
 import { AuthProvider } from "@/context/AuthContext";
-import { CartProvider } from "@/context/CartContext";
 import { NotificationProvider } from "@/context/NotificationContext";
 import { VendorProvider } from "@/context/VendorContext";
+import { CartProvider } from "@/features/cart/CartProvider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
